@@ -1,0 +1,32 @@
+{
+  "name": "illusiard/yii2-mass-event-layer",
+  "description": "Zero-config mass event layer for Yii2: intercepts bulk DB operations and emits unified events (sync/async-ready) with nested transaction safety.",
+  "type": "yii2-extension",
+  "license": "MIT",
+  "keywords": [
+    "yii2",
+    "events",
+    "audit",
+    "mass-operations",
+    "bulk",
+    "transaction",
+    "savepoint"
+  ],
+  "require": {
+    "php": ">=8.1",
+    "yiisoft/yii2": "^2.0.0",
+    "ext-json": "*",
+    "ext-ctype": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "illusiard\\massEvents\\": "src/"
+    }
+  },
+  "extra": {
+    "bootstrap": "illusiard\\massEvents\\\\components\\Bootstrap"
+  },
+  "suggest": {
+    "yiisoft/yii2-queue": "Enables asynchronous publishing through Yii2 Queue (auto-detected by the layer)."
+  }
+}
