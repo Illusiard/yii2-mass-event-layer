@@ -91,7 +91,7 @@ abstract class BasePatternFilter implements FilterInterface
                     continue;
                 }
                 if (preg_match($pattern, $haystack) === 1) {
-                    return false;
+                    return true;
                 }
             } catch (Exception $e) {
                 Yii::error($e->getMessage(), __METHOD__);

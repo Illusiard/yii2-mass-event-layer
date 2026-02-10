@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace illusiard\massEvents\components\queue;
 
@@ -18,7 +19,7 @@ final class PublishEventJob extends BaseObject implements JobInterface
         }
 
         $serializer = $layer->getSerializer();
-        $event      = $serializer->unserializeEvent($this->serializedEvent);
+        $event = $serializer->unserializeEvent($this->serializedEvent);
         $layer->publish($event);
     }
 }

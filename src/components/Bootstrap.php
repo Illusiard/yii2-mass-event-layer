@@ -19,7 +19,6 @@ final class Bootstrap implements BootstrapInterface
         }
 
         $this->ensureComponent($app);
-        $this->patchDbConnection($app);
     }
 
     private function ensureComponent(Application $app): void
@@ -31,21 +30,5 @@ final class Bootstrap implements BootstrapInterface
         $app->set('massEvents', [
             'class' => MassEventLayer::class,
         ]);
-    }
-
-    private function patchDbConnection(Application $app): void
-    {
-        $db = $app->get('db', false);
-        if (!$db instanceof YiiConnection) {
-            return;
-        }
-
-        if ($db->commandClass === YiiCommand::class) {
-            $db->commandClass = Command::class;
-        }
-
-        if ($db->transactionClass === YiiTransaction::class) {
-            $db->transactionClass = Transaction::class;
-        }
     }
 }

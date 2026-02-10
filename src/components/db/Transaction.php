@@ -2,6 +2,7 @@
 
 namespace illusiard\massEvents\components\db;
 
+use illusiard\massEvents\components\MassEventLayer;
 use Yii;
 use yii\db\Transaction as YiiTransaction;
 
@@ -15,7 +16,7 @@ final class Transaction extends YiiTransaction
             parent::commit();
         } finally {
             $layer = Yii::$app->get('massEvents', false);
-            if ($layer === null || !method_exists($layer, 'getEventBuffer')) {
+            if (!$layer instanceof MassEventLayer) {
                 return;
             }
 
@@ -34,7 +35,7 @@ final class Transaction extends YiiTransaction
             parent::rollBack();
         } finally {
             $layer = Yii::$app->get('massEvents', false);
-            if ($layer === null || !method_exists($layer, 'getEventBuffer')) {
+            if (!$layer instanceof MassEventLayer) {
                 return;
             }
 

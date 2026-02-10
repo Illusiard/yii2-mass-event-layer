@@ -24,7 +24,6 @@ final class VersionedJsonSerializer implements SerializerInterface
 
     public function unserializeEvent(string $payload): array
     {
-        /** @var mixed $data */
         $data = json_decode($payload, true, 512, JSON_THROW_ON_ERROR);
         if (!is_array($data)) {
             throw new \UnexpectedValueException('Serialized payload must decode to an array.');
@@ -66,7 +65,7 @@ final class VersionedJsonSerializer implements SerializerInterface
     private function upcast(int $fromVersion, array $event): array
     {
         // v0 -> v1 is a no-op for the event shape.
-        // Future breaking changes would be implemented here.
+        // Future breaking changes should be implemented here.
         return $event;
     }
 

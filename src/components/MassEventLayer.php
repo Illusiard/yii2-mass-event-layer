@@ -12,6 +12,9 @@ use yii\base\Component;
 use yii\queue\Queue;
 use Yii;
 
+/**
+ * @property-read EventBuffer $eventBuffer
+ */
 class MassEventLayer extends Component
 {
     public const EVENT_ANY = 'massEvents.any';
