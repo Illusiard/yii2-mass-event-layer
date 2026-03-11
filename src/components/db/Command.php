@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace illusiard\massEvents\components\db;
 
 use illusiard\massEvents\components\MassEventLayer;
