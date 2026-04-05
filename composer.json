@@ -41,7 +41,7 @@
     }
   },
   "extra": {
-    "bootstrap": "illusiard\\massEvents\\\\components\\Bootstrap"
+    "bootstrap": "illusiard\\massEvents\\components\\Bootstrap"
   },
   "suggest": {
     "yiisoft/yii2-queue": "Enables asynchronous publishing through Yii2 Queue (auto-detected by the layer)."
