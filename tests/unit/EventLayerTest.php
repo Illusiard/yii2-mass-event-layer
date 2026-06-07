@@ -5,6 +5,7 @@ namespace illusiard\massEvents\tests\unit;
 use Yii;
 use yii\base\Event;
 use illusiard\massEvents\components\MassEventLayer;
+use illusiard\massEvents\components\db\Connection;
 use illusiard\massEvents\components\filters\IgnoreTablesFilter;
 use illusiard\massEvents\components\filters\IgnoreSqlPatternsFilter;
 use illusiard\massEvents\tests\BaseTestCase;
@@ -166,5 +167,37 @@ final class EventLayerTest extends BaseTestCase
         $this->assertCount(1, $events);
         $this->assertSame('db.execute', $events[0]['name'] ?? null);
         $this->assertMatchesRegularExpression('/^\s*UPDATE\b/i', $events[0]['payload']['sql'] ?? '');
+    }
+
+    public function testFiltersTreatNonStringPayloadFieldsAsMissing(): void
+    {
+        $tableFilter = new IgnoreTablesFilter(['except' => ['employee']]);
+        $sqlFilter   = new IgnoreSqlPatternsFilter(['only' => ['/^\s*UPDATE\b/i']]);
+
+        $this->assertTrue($tableFilter->shouldPublish(['payload' => ['table' => ['employee']]]));
+        $this->assertTrue($sqlFilter->shouldPublish(['payload' => ['sql' => ['UPDATE employee']]]));
+        $this->assertTrue($sqlFilter->shouldPublish(['payload' => 'UPDATE employee SET status = "x"']));
+    }
+
+    public function testConnectionSerializationDoesNotUseDeprecatedRuntimeState(): void
+    {
+        $db = Yii::$app->db;
+        $db->open();
+
+        $transaction = $db->beginTransaction();
+
+        try {
+            $serialized = serialize($db);
+        } finally {
+            $transaction->rollBack();
+        }
+
+        $this->assertStringNotContainsString('_transaction', $serialized);
+        $this->assertStringNotContainsString('O:3:"PDO"', $serialized);
+
+        $restored = unserialize($serialized);
+
+        $this->assertInstanceOf(Connection::class, $restored);
+        $this->assertNull($restored->getTransaction());
     }
 }

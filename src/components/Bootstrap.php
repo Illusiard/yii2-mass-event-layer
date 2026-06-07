@@ -14,6 +14,7 @@ final class Bootstrap implements BootstrapInterface
      * @return void
      * @throws InvalidConfigException
      */
+    #[\Override]
     public function bootstrap($app): void
     {
         if (!$app instanceof Application) {

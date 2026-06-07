@@ -17,10 +17,7 @@ final class EventBuffer
         $this->storage = new SplObjectStorage();
     }
 
-    /**
-     * @param mixed $event
-     */
-    public function add(Transaction $tx, int $level, $event): void
+    public function add(Transaction $tx, int $level, mixed $event): void
     {
         if ($level < 1) {
             $level = 1;

@@ -6,13 +6,14 @@ use illusiard\massEvents\models\interfaces\FilterInterface;
 
 final class SamplingFilter implements FilterInterface
 {
-    private float $rate;
+    private readonly float $rate;
 
     public function __construct(float $rate)
     {
         $this->rate = max(0.0, min(1.0, $rate));
     }
 
+    #[\Override]
     public function shouldPublish(array $event): bool
     {
         if ($this->rate >= 1.0) {

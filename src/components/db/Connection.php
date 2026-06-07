@@ -18,6 +18,7 @@ class Connection extends YiiConnection
      * @param string|null $sql    the SQL statement to be executed
      * @param array       $params the parameters to be bound to the SQL statement
      */
+    #[\Override]
     public function createCommand($sql = null, $params = []): Command
     {
         $command = new Command([
@@ -42,6 +43,7 @@ class Connection extends YiiConnection
      * @throws NotSupportedException
      * @throws Exception
      */
+    #[\Override]
     public function beginTransaction($isolationLevel = null): YiiTransaction
     {
         $this->open();
@@ -56,18 +58,23 @@ class Connection extends YiiConnection
         return $transaction;
     }
 
+    #[\Override]
     public function getTransaction(): ?Transaction
     {
         return $this->_transaction && $this->_transaction->getIsActive() ? $this->_transaction : null;
     }
 
+    #[\Override]
     public function close(): void
     {
         parent::close();
         $this->_transaction = null;
     }
 
-    public function __sleep()
+    /**
+     * @return array<string, mixed>
+     */
+    public function __serialize(): array
     {
         $fields = (array)$this;
 
@@ -83,9 +90,10 @@ class Connection extends YiiConnection
             $fields["\0" . self::class . "\0_transaction"]
         );
 
-        return array_keys($fields);
+        return $fields;
     }
 
+    #[\Override]
     public function __clone()
     {
         parent::__clone();

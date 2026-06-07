@@ -27,6 +27,7 @@ class MassEventLayer extends Component
     private ?SerializerInterface $serializer = null;
     private ?PublisherInterface  $publisher  = null;
 
+    #[\Override]
     public function init(): void
     {
         parent::init();

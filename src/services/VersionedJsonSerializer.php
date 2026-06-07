@@ -9,6 +9,7 @@ final class VersionedJsonSerializer implements SerializerInterface
     public const SCHEMA  = 'illusiard.mass-events';
     public const VERSION = 1;
 
+    #[\Override]
     public function serializeEvent(array $event): string
     {
         $envelope = [
@@ -22,6 +23,7 @@ final class VersionedJsonSerializer implements SerializerInterface
         return json_encode($envelope, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
     }
 
+    #[\Override]
     public function unserializeEvent(string $payload): array
     {
         $data = json_decode($payload, true, 512, JSON_THROW_ON_ERROR);

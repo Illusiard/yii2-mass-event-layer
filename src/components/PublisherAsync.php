@@ -8,8 +8,8 @@ use illusiard\massEvents\models\interfaces\SerializerInterface;
 
 final class PublisherAsync implements PublisherInterface
 {
-    private QueueAdapterInterface $queue;
-    private SerializerInterface   $serializer;
+    private readonly QueueAdapterInterface $queue;
+    private readonly SerializerInterface   $serializer;
 
     public function __construct(QueueAdapterInterface $queue, SerializerInterface $serializer)
     {
@@ -17,11 +17,13 @@ final class PublisherAsync implements PublisherInterface
         $this->serializer = $serializer;
     }
 
+    #[\Override]
     public function publish(array $event): void
     {
         $this->queue->push($this->serializer->serializeEvent($event));
     }
 
+    #[\Override]
     public function publishMany(array $events): void
     {
         foreach ($events as $event) {

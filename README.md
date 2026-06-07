@@ -18,6 +18,8 @@
 
 ## Installation
 
+Требуется PHP 8.5 или новее.
+
 ```bash
 composer require illusiard/yii2-mass-event-layer
 ```
@@ -236,5 +238,4 @@ Yii::$app->massEvents->setSerializer(new MySerializer());
 
 ## License
 
-BSD-3-Clause
-MIT-compatible permissive license
+MIT

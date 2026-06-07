@@ -37,6 +37,7 @@ abstract class BasePatternFilter implements FilterInterface
 
     abstract protected function getHaystackString(array $event): ?string;
 
+    #[\Override]
     public function shouldPublish(array $event): bool
     {
         $haystack = $this->getHaystackString($event);

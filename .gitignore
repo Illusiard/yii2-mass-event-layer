@@ -23,3 +23,4 @@ Thumbs.db
 
 # phpunit itself is not needed
 phpunit.phar
+.phpunit.cache/

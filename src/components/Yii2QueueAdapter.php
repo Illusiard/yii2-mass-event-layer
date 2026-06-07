@@ -10,13 +10,14 @@ use illusiard\massEvents\components\queue\PublishEventJob;
 
 final class Yii2QueueAdapter implements QueueAdapterInterface
 {
-    private string $queueComponentId;
+    private readonly string $queueComponentId;
 
     public function __construct(string $queueComponentId = 'queue')
     {
         $this->queueComponentId = $queueComponentId;
     }
 
+    #[\Override]
     public function push(string $serializedEvent): string
     {
         $queue = Yii::$app->get($this->queueComponentId, false);

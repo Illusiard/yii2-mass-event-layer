@@ -8,6 +8,7 @@ use yii\db\Transaction as YiiTransaction;
 
 final class Transaction extends YiiTransaction
 {
+    #[\Override]
     public function commit(): void
     {
         $levelBefore = $this->level;
@@ -27,6 +28,7 @@ final class Transaction extends YiiTransaction
         }
     }
 
+    #[\Override]
     public function rollBack(): void
     {
         $levelBefore = $this->level;

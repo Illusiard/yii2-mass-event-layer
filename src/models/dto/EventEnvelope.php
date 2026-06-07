@@ -4,7 +4,11 @@ namespace illusiard\massEvents\models\dto;
 
 final class EventEnvelope
 {
-    /** @param array<string, mixed> $event @return array<string, mixed> */
+    /**
+     * @param array<string, mixed> $event
+     *
+     * @return array<string, mixed>
+     */
     public static function wrap(array $event): array
     {
         if (!isset($event['id']) || !is_string($event['id']) || $event['id'] === '') {

@@ -11,6 +11,7 @@ class Command extends YiiCommand
 {
     private ?CommandContext $context = null;
 
+    #[\Override]
     public function update($table, $columns, $condition = '', $params = []): static
     {
         $this->context = CommandContext::forUpdateAll($table, $columns, $condition, $params);
@@ -18,6 +19,7 @@ class Command extends YiiCommand
         return parent::update($table, $columns, $condition, $params);
     }
 
+    #[\Override]
     public function delete($table, $condition = '', $params = []): static
     {
         $this->context = CommandContext::forDeleteAll($table, $condition, $params);
@@ -25,6 +27,7 @@ class Command extends YiiCommand
         return parent::delete($table, $condition, $params);
     }
 
+    #[\Override]
     public function insert($table, $columns): static
     {
         $this->context = CommandContext::forInsert($table, $columns);
@@ -32,6 +35,7 @@ class Command extends YiiCommand
         return parent::insert($table, $columns);
     }
 
+    #[\Override]
     public function batchInsert($table, $columns, $rows): static
     {
         $this->context = CommandContext::forBatchInsert($table, $columns, $rows);
@@ -39,6 +43,7 @@ class Command extends YiiCommand
         return parent::batchInsert($table, $columns, $rows);
     }
 
+    #[\Override]
     public function execute(): int
     {
         $affected = parent::execute();

@@ -10,6 +10,7 @@ final class PublishEventJob extends BaseObject implements JobInterface
 {
     public string $serializedEvent = '';
 
+    #[\Override]
     public function execute($queue): void
     {
         $layer = Yii::$app->get('massEvents', false);
